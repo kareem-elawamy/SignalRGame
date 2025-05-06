@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\TC\\source\\repos\\SignalRGame\\SignalRGame\\SignalRGame\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SignalRGame.bundle.scp.css",
+      "PackagePath": "staticwebassets\\SignalRGame.sekrx0bdfk.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\TC\\source\\repos\\SignalRGame\\SignalRGame\\SignalRGame\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\TC\\source\\repos\\SignalRGame\\SignalRGame\\SignalRGame\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\TC\\source\\repos\\SignalRGame\\SignalRGame\\SignalRGame\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TC\\source\\repos\\SignalRGame\\SignalRGame\\SignalRGame\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.SignalRGame.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.SignalRGame.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.SignalRGame.props",
+      "PackagePath": "build\\SignalRGame.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.SignalRGame.props",
+      "PackagePath": "buildMultiTargeting\\SignalRGame.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.SignalRGame.props",
+      "PackagePath": "buildTransitive\\SignalRGame.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

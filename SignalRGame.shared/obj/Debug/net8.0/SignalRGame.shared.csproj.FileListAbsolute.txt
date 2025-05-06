@@ -1,0 +1,11 @@
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\bin\Debug\net8.0\SignalRGame.shared.deps.json
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\bin\Debug\net8.0\SignalRGame.shared.dll
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\bin\Debug\net8.0\SignalRGame.shared.pdb
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\obj\Debug\net8.0\SignalRGame.shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\obj\Debug\net8.0\SignalRGame.shared.AssemblyInfoInputs.cache
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\obj\Debug\net8.0\SignalRGame.shared.AssemblyInfo.cs
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\obj\Debug\net8.0\SignalRGame.shared.csproj.CoreCompileInputs.cache
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\obj\Debug\net8.0\SignalRGame.shared.dll
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\obj\Debug\net8.0\refint\SignalRGame.shared.dll
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\obj\Debug\net8.0\SignalRGame.shared.pdb
+C:\Users\TC\source\repos\SignalRGame\SignalRGame.shared\obj\Debug\net8.0\ref\SignalRGame.shared.dll

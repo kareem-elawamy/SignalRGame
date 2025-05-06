@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRGame", "SignalRGame\SignalRGame\SignalRGame.csproj", "{3D62B473-696E-4046-AB75-F0004FFADE5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRGame.Client", "SignalRGame\SignalRGame.Client\SignalRGame.Client.csproj", "{D323DFB3-C2FA-4824-8DD3-DC219775F70B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRGame.shared", "SignalRGame.shared\SignalRGame.shared.csproj", "{D59FBC26-DD3B-482E-9FA4-EF6D89721A28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D62B473-696E-4046-AB75-F0004FFADE5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D62B473-696E-4046-AB75-F0004FFADE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D62B473-696E-4046-AB75-F0004FFADE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D62B473-696E-4046-AB75-F0004FFADE5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D323DFB3-C2FA-4824-8DD3-DC219775F70B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D323DFB3-C2FA-4824-8DD3-DC219775F70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D323DFB3-C2FA-4824-8DD3-DC219775F70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D323DFB3-C2FA-4824-8DD3-DC219775F70B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D59FBC26-DD3B-482E-9FA4-EF6D89721A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D59FBC26-DD3B-482E-9FA4-EF6D89721A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D59FBC26-DD3B-482E-9FA4-EF6D89721A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D59FBC26-DD3B-482E-9FA4-EF6D89721A28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C1040D1-BC10-4FC5-ABEB-65B4D477CF5A}
+	EndGlobalSection
+EndGlobal

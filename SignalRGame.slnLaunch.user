@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "SignalRGame\\SignalRGame\\SignalRGame.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "SignalRGame\\SignalRGame.Client\\SignalRGame.Client.csproj",
+        "Action": "Start",
+        "DebugTarget": "SignalRGame.Client"
+      }
+    ]
+  }
+]

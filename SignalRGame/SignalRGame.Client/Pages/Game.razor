@@ -1,0 +1,280 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+@using SignalRGame.shared
+@inject NavigationManager navigationManager;
+@rendermode @(new InteractiveWebAssemblyRenderMode(false))
+
+<h3>Game</h3>
+
+<div class="row">
+    <div class="col-3">Player Name:</div>
+    <div class="col-6"><input @bind="playerName" placeholder="Enter Name" /></div>
+</div>
+<div class="row">
+    <div class="col-3">Room Name:</div>
+    <div class="col-6"><input @bind="currentRoom" placeholder="Enter Room Name" /></div>
+</div>
+<div class="row">
+    <div class="col-6 offset-3"><button @onclick="CreateRoom">Create</button></div>
+</div>
+
+<hr />
+<h4>Rooms available</h4>
+<ul>
+    @foreach (var r in rooms)
+    {
+        <li>
+            <span>
+                @r.RoomName @r.PlayerList.Count
+            </span>
+            <button @onclick="() => JoinRoom(r.RoomId)">Join</button>
+        </li>
+    }
+</ul>
+
+@if (myRoom != null && myRoom.PlayerList.Count <= 2)
+{
+    <h4>Game Board</h4>
+    <p>You are: <strong>@mySymbol</strong></p>
+    <p>@(isMyTurn ? "Your turn!" : "Opponent's turn...")</p>
+
+    <div class="game-board">
+        @for (int i = 0; i < 3; i++)
+        {
+            <div class="board-row">
+                @for (int j = 0; j < 3; j++)
+                {
+                    int index = i * 3 + j;
+                    <button class="cell" @onclick="() => MakeMove(index)" disabled="@(!string.IsNullOrEmpty(gameBoard[index]))">
+                        @gameBoard[index]
+                    </button>
+                }
+            </div>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(winner))
+    {
+        <h5>@winner</h5>
+        <button @onclick="ResetBoard">Restart Game</button>
+    }
+}
+
+@code {
+    private HubConnection? hubConnection;
+    private string playerName = string.Empty;
+    private string currentRoom = string.Empty;
+    private Room? myRoom;
+    private List<Room> rooms = new();
+    private string[] gameBoard = new string[9];
+    private string mySymbol = string.Empty;
+    private bool isMyTurn = false;
+    private string winner = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(navigationManager.ToAbsoluteUri("/mygamehub"))
+            .Build();
+
+        hubConnection.On<List<Room>>("Rooms", roomList =>
+        {
+            rooms = roomList.ToList();
+            StateHasChanged();
+        });
+
+        hubConnection.On<int, string>("ReceiveMove", (index, symbol) =>
+        {
+            gameBoard[index] = symbol;
+            isMyTurn = true;
+            CheckWinner();
+            StateHasChanged();
+        });
+        hubConnection.On<Room>("RoomUpdated", room =>
+        {
+            myRoom = room;
+            StateHasChanged();
+
+            if (myRoom.PlayerList.Count == 2)
+            {
+                var firstPlayer = myRoom.PlayerList[0].name;
+                if (firstPlayer == playerName)
+                {
+                    mySymbol = "X";
+                    isMyTurn = true;
+                }
+                else
+                {
+                    mySymbol = "O";
+                    isMyTurn = false;
+                }
+            }
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    private async Task CreateRoom()
+    {
+        if (hubConnection is not null)
+        {
+            myRoom = await hubConnection.InvokeAsync<Room>("CreateRoom", playerName, currentRoom);
+            SetPlayerInfo();
+        }
+    }
+
+    private async Task JoinRoom(string idRoom)
+    {
+        if (hubConnection is not null)
+        {
+            var room = await hubConnection.InvokeAsync<Room>("JoinRoom", idRoom, playerName);
+            if (room is not null)
+            {
+                myRoom = room;
+                SetPlayerInfo();
+            }
+        }
+    }
+
+    private void SetPlayerInfo()
+    {
+        if (myRoom?.PlayerList.Count <= 2)
+        {
+            if (myRoom.PlayerList[0].connectionId == hubConnection?.ConnectionId)
+            {
+                mySymbol = "X";
+                isMyTurn = true;
+            }
+            else
+            {
+                mySymbol = "O";
+                isMyTurn = false;
+            }
+        }
+    }
+
+    private async Task MakeMove(int index)
+    {
+        if (isMyTurn && string.IsNullOrEmpty(gameBoard[index]))
+        {
+            gameBoard[index] = mySymbol;
+            isMyTurn = false;
+
+            await hubConnection.SendAsync("MakeMove", myRoom.RoomId, index, mySymbol);
+            CheckWinner();
+        }
+    }
+
+    private void CheckWinner()
+    {
+        string[][] winPatterns = new string[][]
+        {
+            new[] { "0", "1", "2" }, new[] { "3", "4", "5" }, new[] { "6", "7", "8" },
+            new[] { "0", "3", "6" }, new[] { "1", "4", "7" }, new[] { "2", "5", "8" },
+            new[] { "0", "4", "8" }, new[] { "2", "4", "6" }
+        };
+
+        // تحقق من الفوز
+        foreach (var pattern in winPatterns)
+        {
+            var a = int.Parse(pattern[0]);
+            var b = int.Parse(pattern[1]);
+            var c = int.Parse(pattern[2]);
+
+            if (!string.IsNullOrEmpty(gameBoard[a]) &&
+                gameBoard[a] == gameBoard[b] &&
+                gameBoard[b] == gameBoard[c])
+            {
+                winner = $"Player {gameBoard[a]} wins!";
+                isMyTurn = false; // يجب إنهاء اللعبة بعد الفائز
+                break;
+            }
+        }
+
+        // تحقق من حالة التعادل
+        if (string.IsNullOrEmpty(winner) && !gameBoard.Contains(string.Empty))
+        {
+            winner = "It's a draw!";  // تعادل
+            isMyTurn = false; // يجب إنهاء اللعبة عند التعادل
+        }
+    }
+
+    private void ResetBoard()
+    {
+        gameBoard = new string[9];
+        winner = string.Empty;
+        isMyTurn = (mySymbol == "X");
+    }
+}
+<style>
+    .game-board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-gap: 5px;
+        margin: 20px 0;
+    }
+
+    .board-row {
+        display: contents;
+    }
+
+    .cell {
+        width: 100px;
+        height: 100px;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        background-color: #f0f0f0;
+        border: 2px solid #999;
+        border-radius: 10px;
+        transition: background-color 0.2s;
+    }
+
+        .cell:hover:enabled {
+            background-color: #ddd;
+            cursor: pointer;
+        }
+
+    h3, h4, h5 {
+        color: #2c3e50;
+    }
+
+    input {
+        padding: 5px;
+        margin: 5px 0;
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        padding: 8px 16px;
+        margin: 5px;
+        border: none;
+        background-color: #3498db;
+        color: white;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    li {
+        margin: 5px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .row {
+        margin-bottom: 10px;
+    }
+</style>
