@@ -186,7 +186,7 @@
                 gameBoard[b] == gameBoard[c])
             {
                 winner = $"Player {gameBoard[a]} wins!";
-                isMyTurn = false; // يجب إنهاء اللعبة بعد الفائز
+                isMyTurn = false; 
                 break;
             }
         }
@@ -194,8 +194,8 @@
         // تحقق من حالة التعادل
         if (string.IsNullOrEmpty(winner) && !gameBoard.Contains(string.Empty))
         {
-            winner = "It's a draw!";  // تعادل
-            isMyTurn = false; // يجب إنهاء اللعبة عند التعادل
+            winner = "It's a draw!";  
+            isMyTurn = false; 
         }
     }
 
